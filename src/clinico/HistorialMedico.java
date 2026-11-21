@@ -77,7 +77,7 @@ public class HistorialMedico {
         String textoReceta = (receta != null) ? receta.getDetalleReceta() : "Sin receta asignada.";// ambos se conviertieron en variables q traen metodos
 
         return String.format(// string format es una manera de acomodar 
-            "=== HISTORIAL MEDICO (Version %d) ===\n" +
+            "-HISTORIAL MEDICO (Version %d)-\n" +
             "-Fecha de Modificacion: %s\n" +
             "-Diagnostico: %s\n" +
             "-Observaciones: %s\n\n" +
