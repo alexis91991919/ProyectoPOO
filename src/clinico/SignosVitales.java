@@ -25,9 +25,9 @@ public class SignosVitales {
         return String.format(// string format es una manera de acomodar
             "--- Signos Vitales ---\n" +
             "  * Presion Arterial: %s mmHg\n" +
-            "  * Temperatura: %.1f C\n"// %.1f muestra el decimal redondeado a 1 digito
+            "  * Temperatura: %.1f C\n" + // %.1f muestra el decimal redondeado a 1 digito
             "  * Frecuencia Cardiaca: %d lpm\n" +
-            "  * Saturacion de Oxigeno: %d%%\n"// %% imprime el simbolo de porcentaje literal
+            "  * Saturacion de Oxigeno: %d%%\n" +// %% imprime el simbolo de porcentaje literal
             "  * Peso: %.1f kg\n" +
             "  * Estado Critico: %s",
             presionArterial, temperatura, frecuenciaCardiaca, saturacionOxigeno, peso,
@@ -38,8 +38,8 @@ public class SignosVitales {
     // evalua los rangos medicos y devuelve true si alguno sale de lo normal (lo consulta HistorialMedico)
     public boolean esEstadoCritico() {
         return (temperatura > 39.0 || temperatura < 35.0) ||// fiebre alta o hipotermia
-               (frecuenciaCardiaca > 120 || frecuenciaCardiaca < 50) ||// taquicardia o bradicardia
-               (saturacionOxigeno < 90);// falta de oxigenacion
+            (frecuenciaCardiaca > 120 || frecuenciaCardiaca < 50) ||// taquicardia o bradicardia
+            (saturacionOxigeno < 90);// falta de oxigenacion
     }
 
     // getters y setters para acceder y modificar cada medicion privada
