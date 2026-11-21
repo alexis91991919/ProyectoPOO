@@ -90,7 +90,7 @@ public class Medico extends Personal {
         }
     }
 
-    // getters para consultar los datos propios del medico
+    // getters para consultar los datos del medico
     public String getEspecialidad() { return especialidad; }
     public int getConsultorio() { return consultorio; }
     public int getCirugias() { return cirugias; }
