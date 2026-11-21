@@ -3,10 +3,13 @@ package administracion;
 import excepciones.Excepciones;
 import personas.Medico;
 import personas.Paciente;
+import java.util.ArrayList;
 import java.util.List;
 
 // representa una cita medica entre un paciente y un medico en una fecha y hora especificas
 public class CitaMedica {
+    private static final List<String> HORARIOS_OCUPADOS = new ArrayList<>();
+
     private int idCita;
     private String fecha;
     private String hora;
@@ -19,6 +22,14 @@ public class CitaMedica {
         this.estado = "PENDIENTE";
     }
 
+    // constructor corto llamado desde Main.java
+    public CitaMedica(String fecha, String hora, String motivo) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.motivo = motivo;
+        this.estado = "PENDIENTE";
+    }
+
     public CitaMedica(int idCita, String fecha, String hora, String motivo, Paciente paciente, Medico medico) {
         this.idCita = idCita;
         this.fecha = fecha;
@@ -27,6 +38,23 @@ public class CitaMedica {
         this.paciente = paciente;
         this.medico = medico;
         this.estado = "PENDIENTE";
+    }
+
+    // metodo llamado desde Main.java: agendarCita(21, 10) -> lanza 409 si ya esta ocupado
+    public void agendarCita(int dia, int horaCita) throws Excepciones {
+        String clave = dia + "-" + horaCita;
+        if (HORARIOS_OCUPADOS.contains(clave)) {
+            throw new Excepciones(
+                "El horario del dia " + dia + " a las " + horaCita + ":00 ya no esta disponible.",
+                409,
+                "CITA_NO_DISPONIBLE"
+            );
+        }
+        HORARIOS_OCUPADOS.add(clave);
+        this.fecha = "Dia " + dia;
+        this.hora = horaCita + ":00";
+        this.estado = "AGENDADA";
+        System.out.println("Cita agendada para el " + this.fecha + " a las " + this.hora + " | Motivo: " + motivo);
     }
 
     // valida que el medico no tenga otra cita agendada el mismo dia y hora
@@ -58,14 +86,12 @@ public class CitaMedica {
                 " con el Dr. " + medico.getNombre() + " (" + fecha + " - " + hora + ").");
     }
 
-    // sobrecarga simple por si se llama sin lista externa (revisa que no este ya cancelada/agendada)
     public void agendarCita() throws Excepciones {
         if ("AGENDADA".equalsIgnoreCase(this.estado)) {
             throw new Excepciones("La cita #" + idCita + " ya se encuentra agendada.", 409, "CITA_NO_DISPONIBLE");
         }
         this.estado = "AGENDADA";
-        System.out.println("Cita #" + idCita + " agendada para " +
-                (paciente != null ? paciente.getNombre() : "Sin paciente") + ".");
+        System.out.println("Cita #" + idCita + " agendada.");
     }
 
     public void cancelarCita() {

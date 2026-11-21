@@ -73,6 +73,20 @@ public class Hospital {
         }
     }
 
+    // busca un paciente por numero de carnet y lanza la excepcion 404 si no existe
+    public Paciente buscarPaciente(int numeroCarnet) throws Excepciones {
+        for (Paciente p : listaPacientes) {
+            if (p.getNumeroCarnet() == numeroCarnet) {
+                return p;
+            }
+        }
+        throw new Excepciones(
+            "No se encontro ningun paciente con el carnet: " + numeroCarnet,
+            404,
+            "PACIENTE_NO_ENCONTRADO"
+        );
+    }
+
     // busca un paciente por nombre y lanza la excepcion 404 si no existe
     public Paciente buscarPaciente(String nombre) throws Excepciones {
         if (nombre != null) {

@@ -1,13 +1,16 @@
 package personas;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // subclase de personal que representa al area/encargado de laboratorio clinico
 public class Laboratorio extends Personal {
     private String area;
     private List<String> muestrasPendientes;
     private List<String> resultados;
+    private Map<Integer, String> resultadosPorCarnet;
 
     // constructor sencillo por si se instancia solo como departamento
     public Laboratorio(String area) {
@@ -17,6 +20,7 @@ public class Laboratorio extends Personal {
         this.area = area;
         this.muestrasPendientes = new ArrayList<>();
         this.resultados = new ArrayList<>();
+        this.resultadosPorCarnet = new HashMap<>();
     }
 
     // constructor completo como trabajador del hospital
@@ -25,6 +29,7 @@ public class Laboratorio extends Personal {
         this.area = area;
         this.muestrasPendientes = new ArrayList<>();
         this.resultados = new ArrayList<>();
+        this.resultadosPorCarnet = new HashMap<>();
     }
 
     // metodo llamado desde Enfermero.registrarMuestraLab()
@@ -36,6 +41,21 @@ public class Laboratorio extends Personal {
         String registro = "Paciente: " + p.getNombre() + " | Muestra: " + tipoMuestra;
         muestrasPendientes.add(registro);
         System.out.println("[Laboratorio - " + area + "] Muestra recibida -> " + registro);
+    }
+
+    // metodo llamado desde Main.java
+    public void registrarResultado(int numeroCarnet, String resultado) {
+        resultadosPorCarnet.put(numeroCarnet, resultado);
+        resultados.add("Carnet #" + numeroCarnet + ": " + resultado);
+        System.out.println("[Laboratorio - " + area + "] Resultado registrado para carnet #" + numeroCarnet + ": " + resultado);
+    }
+
+    // metodo llamado desde Main.java
+    public String consultarResultado(int numeroCarnet) {
+        return resultadosPorCarnet.getOrDefault(
+            numeroCarnet,
+            "Sin resultados registrados para el carnet #" + numeroCarnet
+        );
     }
 
     // procesa una muestra y guarda el resultado del estudio

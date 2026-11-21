@@ -10,6 +10,14 @@ public class Administrador extends Personal {
     private String departamento;
     private Hospital hospital;
 
+    // constructor corto llamado desde Main.java
+    public Administrador(String nivelAcceso, String departamento, Hospital hospital) {
+        super(0, "Admin " + departamento, 30, 'M', 25000.0, "Administrador", "08:00-16:00");
+        this.nivelAcceso = nivelAcceso;
+        this.departamento = departamento;
+        this.hospital = hospital;
+    }
+
     // constructor que envia los datos comunes a personal y asigna el cargo de administrador
     public Administrador(int numeroCarnet, String nombre, int edad, char sexo, double sueldo, String horario,
                          String nivelAcceso, String departamento, Hospital hospital) {
@@ -51,14 +59,14 @@ public class Administrador extends Personal {
         }
     }
 
-    // PATRON TEMPLATE METHOD 
+    // PATRON TEMPLATE METHOD
     // define la revision administrativa que hace el administrador dentro del protocolo
     @Override
     protected void realizarLaborClinica(Paciente paciente) {
         System.out.println("Admin " + nombre + " (" + departamento + ") verifica la documentacion de " + paciente.getNombre());
     }
 
-    // PATRON CHAIN OF RESPONSIBILITY 
+    // PATRON CHAIN OF RESPONSIBILITY
     // atiende solicitudes administrativas o las pasa al siguiente responsable de la cadena
     @Override
     public void procesarSolicitud(String tipoSolicitud, Paciente paciente) {
